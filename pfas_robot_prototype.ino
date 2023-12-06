@@ -46,7 +46,7 @@ unsigned int lineSensorValues[NUM_SENSORS];
 //VARIABLER FOR AFSTAND UD TIL VANDKANTEN
 int a = 0;
 int list[4] = { 2000, 1500, 4000, 1700 };
-double coastLineDistance[] = {84, 83.4, 81.65, 78, 67.3, 63.1, 61.95, 62.45, 64.75, 70.25, 76, 77.93, 78.13, 77.82, 77.2, 76.05, 74, 71, 66.48, 65.67, 69.15, 69};
+double coastLineDistance[] = {84, 83.4, 81.65, 78, 67.3, 63.1, 61.95, 62.45, 64.75, 70.25, 76, 77.93, 78.13, 77.82, 77.2, 76.05, 74, 71, 66.48, 65.67, 69};
 
 
 void setup() {
