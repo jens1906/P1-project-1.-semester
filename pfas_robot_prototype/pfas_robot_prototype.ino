@@ -45,9 +45,18 @@ unsigned int lineSensorValues[NUM_SENSORS];
 
 //VARIABLER FOR AFSTAND UD TIL VANDKANTEN
 int a = 0;
-int list[4] = { 2000, 1500, 4000, 1700 };
-double coastLineDistance[] = {84, 83.4, 81.65, 78, 67.3, 63.1, 61.95, 62.45, 64.75, 70.25, 76, 77.93, 78.13, 77.82, 77.2, 76.05, 74, 71, 66.48, 65.67, 69};
+//int list[4] = { 20, 15, 40, 17 };
+//double coastLineDistance[] = { 84, 83.4, 81.65, 78, 67.3, 63.1, 61.95, 62.45, 64.75, 70.25, 76, 77.93, 78.13, 77.82, 77.2, 76.05, 74, 71, 66.48, 65.67, 69 };
+double coastLineDistance[] = { 65, 64.4, 62.65, 59, 48.3, 44.1, 42.95, 43.45, 45.75, 51.25, 57, 58.93, 59.13, 58.82, 58.2, 57.05, 55, 52, 47.48, 46.67, 50 };
 
+
+//Drive straight and specific distance
+int lineDistanceDriven = 0;
+double ForwardVal[] = { 200, 200 };
+double MotorChange = 0.1;
+double EncoderMultipliers[] = { 1, 0.9951183256 };
+double EncoderArray[2];
+float wheelCirc = 12.6;
 
 void setup() {
   Serial.begin(9600);
@@ -69,7 +78,8 @@ void loop() {
     case 0:
       if (tour == 1) {
         encoderReset();
-        lineFollow(6000);
+        lineDistanceDriven += 20;
+        lineFollow(20);
         delay(10);
         stage = 1;
       } else {
@@ -79,11 +89,13 @@ void loop() {
     case 1:
       turnByDegree(90);  //vinkelret venstre
       encoderReset();
-      forwardByEncoder(list[a]);
+      display.print(coastLineDistance[(lineDistanceDriven / 5)]);
+      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)] - 19);
       encoderReset();
       sampleCollect();
       turnByDegree(180);
-      forwardByEncoder(list[a]);
+      display.print(coastLineDistance[(lineDistanceDriven / 5)]);
+      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)] - 19);
       encoderReset();
       turnByDegree(90);
       a++;
@@ -92,7 +104,8 @@ void loop() {
     case 2:
       if (sample != 2) {
         encoderReset();
-        lineFollow(2000);
+        lineDistanceDriven += 20;
+        lineFollow(20);
         delay(10);
         stage = 1;
       } else {
@@ -110,18 +123,13 @@ void loop() {
   }
 }
 
-void buzzerAndDelay() {
-  currentMillis = millis();
-  if (currentMillis - startMillis >= 1000) {
-    buzzer.playNote(NOTE_E(4), 350, 15);
-    startMillis = currentMillis;
-  }
+
+int CalcDistance(double Left, double Right) {
+  int DrivenDistance = (int)(Left / (12 * 75) * wheelCirc + Right / (12 * 75) * wheelCirc) / 2;
+  return DrivenDistance;
 }
 
-void encoderReset() {
-  countsLeft = encoders.getCountsAndResetLeft();
-  countsRight = encoders.getCountsAndResetRight();
-}
+
 
 void sampleCollect() {
   buzzer.playNote(NOTE_E(4), 350, 15);
@@ -133,9 +141,9 @@ void returnToBase() {
   turnByDegree(180);
   encoderReset();
   if (tour == 1) {
-    lineFollow(8000);
+    lineFollow(80);
   } else {
-    lineFollow(4000);
+    lineFollow(40);
   }
   delay(100);
   turnByDegree(180);
@@ -144,109 +152,9 @@ void returnToBase() {
   stage = 3;
 }
 
-void forwardByEncoder(int EncoderWanted) {  //kører fremad indtil gennemsnittet af højre og venstre bælte bliver størrer end EncoderWanted
-  delay(100);
-  motors.setSpeeds(speed, speed);
-  do {
-    countsLeft = encoders.getCountsLeft();
-    countsRight = encoders.getCountsRight();
-  } while (((countsLeft + countsRight) / 2) < EncoderWanted);
-  motors.setSpeeds(0, 0);
-  delay(100);
-}
 
-void turnByDegree(int DegreesWanted) {
-  WantedAngle = DegreesWanted;
 
-  //Kør så længe gyro siger man IKKE er ved den rette vinkel
-  while (turnSensorUpdate() != DegreesWanted) {
-    display.clear();
-    display.print(turnSensorUpdate());
 
-    //For at finde nuværende position
-    int Way = turnSensorUpdate();
-    ((DegreesWanted - Way) > 0) ? motors.setSpeeds(-100, 100) : motors.setSpeeds(-100, 100);  //Hvis ? Så gør : Ellers;  For at udregne korteste mulige sving (ternary operator)
-  }
-  motors.setSpeeds(0, 0);  //gør hold
-  delay(10);
-  turnSensorReset();
-}
 
-void lineFollow(int lineDistance) {
-  while (((countsLeft + countsRight) / 2) < lineDistance) {
-    countsLeft = encoders.getCountsLeft();
-    countsRight = encoders.getCountsRight();
-    int16_t position = lineSensors.readLine(lineSensorValues);
-    int16_t integral = 0;
-    // Our "error" is how far we are away from the center of the line, which corresponds to position 2000.
-    int16_t error = position - 2000;
-    integral += error;
 
-    //int16_t speedDifference = (kp) * error + (kd) * (error - lastError);
-    int16_t speedDifference = (kp)*error + (Ki)*integral + (kd) * (error - lastError);
 
-    lastError = error;
-
-    // Get individual motor speeds.  The sign of speedDifference
-    // determines if the robot turns left or right.
-    int16_t leftSpeed = (int16_t)maxSpeed + speedDifference;
-    int16_t rightSpeed = (int16_t)maxSpeed - speedDifference;
-
-    leftSpeed = constrain(leftSpeed, -200, (int16_t)maxSpeed);
-    rightSpeed = constrain(rightSpeed, -200, (int16_t)maxSpeed);
-
-    motors.setSpeeds(leftSpeed, rightSpeed);
-  }
-  motors.setSpeeds(0, 0);
-  delay(100);
-}
-
-//Calibrate linesensors
-void calibrateSensors() {
-  delay(1000);
-  for (uint16_t i = 0; i < 120; i++) {
-    if (i > 30 && i <= 90) {
-      motors.setSpeeds(-speed, speed);
-    } else {
-      motors.setSpeeds(speed, -speed);
-    }
-    lineSensors.calibrate();
-  }
-  motors.setSpeeds(0, 0);
-}
-
-//ALT FOR GYRO HERUNDER:
-//Nulstil gyro sensor
-void turnSensorReset() {
-  gyroLastUpdate = micros();
-  turnAngle = 0;
-}
-
-//Update gyro sensor kun med værdier fra 0-360
-uint32_t turnSensorUpdate() {
-  imu.readGyro();
-  turnRate = imu.g.z - gyroOffset;
-  uint16_t m = micros();
-  uint16_t dt = m - gyroLastUpdate;
-  gyroLastUpdate = m;
-  int32_t d = (int32_t)turnRate * dt;
-  turnAngle += (int64_t)d * 14680064 / 17578125;
-  return ((((uint32_t)turnAngle >> 16) * 360) >> 16);
-}
-
-//setup gyro sensor
-void turnSensorSetup() {
-  Wire.begin();
-  imu.init();
-  imu.enableDefault();
-  imu.configureForTurnSensing();
-  delay(500);
-  int32_t total = 0;
-  for (uint16_t i = 0; i < 1024; i++) {
-    while (!imu.gyroDataReady()) {}
-    imu.readGyro();
-    total += imu.g.z;
-  }
-  gyroOffset = total / 1024;
-  turnSensorReset();
-}
