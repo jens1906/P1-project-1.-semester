@@ -90,12 +90,12 @@ void loop() {
       turnByDegree(90);  //vinkelret venstre
       encoderReset();
       display.print(coastLineDistance[(lineDistanceDriven / 5)]);
-      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)] - 19);
+      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)]);
       encoderReset();
       sampleCollect();
       turnByDegree(180);
       display.print(coastLineDistance[(lineDistanceDriven / 5)]);
-      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)] - 19);
+      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)]);
       encoderReset();
       turnByDegree(90);
       a++;
