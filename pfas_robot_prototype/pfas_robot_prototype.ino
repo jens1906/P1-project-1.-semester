@@ -56,6 +56,10 @@ double EncoderMultipliers[] = { 1, 0.9951183256 };
 double EncoderArray[2];
 float wheelCirc = 12.5;
 
+const int resolutionBetweenTest = 20;
+const int offset = 5;
+const int startPos = 1;
+
 void setup() {
   Serial.begin(9600);
   turnSensorSetup();
@@ -76,8 +80,8 @@ void loop() {
     case 0:
       if (tour == 1) {
         encoderReset();
-        lineDistanceDriven += 25;
-        lineFollow(25);
+        lineDistanceDriven += resolutionBetweenTest;
+        lineFollow(resolutionBetweenTest);
         delay(10);
         stage = 1;
       } else {
@@ -85,23 +89,13 @@ void loop() {
       }
       break;
     case 1:
-      turnByDegree(90);  //vinkelret venstre
-      encoderReset();
-      printing((lineDistanceDriven / 5) + 2, coastLineDistance[(lineDistanceDriven / 5) + 2]);
-      forwardByEncoder(coastLineDistance[(((lineDistanceDriven - 5) / 5) + 2)]);
-      encoderReset();
-      sampleCollect();
-      turnByDegree(180);
-      printing((lineDistanceDriven / 5), coastLineDistance[(lineDistanceDriven / 5)]);
-      forwardByEncoder(coastLineDistance[(((lineDistanceDriven - 5) / 5) + 2)]);
-      encoderReset();
-      turnByDegree(90);
+      driveAndCollect(coastLineDistance[(((lineDistanceDriven) / 5) + startPos)]);
       delay(10);
     case 2:
       if (sample != 2) {
         encoderReset();
-        lineDistanceDriven += 25;
-        lineFollow(25);
+        lineDistanceDriven += resolutionBetweenTest;
+        lineFollow(resolutionBetweenTest);
         delay(10);
         stage = 1;
       } else {
@@ -123,10 +117,10 @@ void printing(int ting1, int ting2) {
 
 
 void sampleDropOff() {
-  buzzer.playNote(NOTE_E(4), 350, 15);
-  delay(1000);
-  buzzer.playNote(NOTE_E(4), 350, 15);
-  delay(1000);
+  for (int i = 0; i < sample; i++) {
+    buzzer.playNote(NOTE_E(4), 350, 15);
+    delay(1000);
+  }
   tour += 1;
   sample = 0;
   stage = 0;
@@ -136,6 +130,21 @@ void sampleCollect() {
   buzzer.playNote(NOTE_E(4), 350, 15);
   delay(400);
   sample += 1;
+}
+
+void driveAndCollect(double Distance) {
+  turnByDegree(90);  //vinkelret venstre
+  delay(1000);
+  encoderReset();
+  printing((lineDistanceDriven / 5) + 2, coastLineDistance[(lineDistanceDriven / 5) + 2]);
+  forwardByEncoder(Distance);
+  sampleCollect();
+  turnByDegree(180);
+  encoderReset();
+  printing((lineDistanceDriven / 5), coastLineDistance[(lineDistanceDriven / 5)]);
+  forwardByEncoder(Distance);
+  turnByDegree(90);
+  encoderReset();
 }
 
 void returnToBase() {
