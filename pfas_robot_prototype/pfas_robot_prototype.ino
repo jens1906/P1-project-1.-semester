@@ -128,6 +128,7 @@ void sampleDropOff() {
   buzzer.playNote(NOTE_E(4), 350, 15);
   delay(1000);
   tour += 1;
+  sample = 0;
   stage = 0;
 }
 
