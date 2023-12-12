@@ -45,7 +45,6 @@ float Ki = 0.1;
 unsigned int lineSensorValues[NUM_SENSORS];
 
 //VARIABLER FOR AFSTAND UD TIL VANDKANTEN
-int a = 0;
 double coastLineDistance[] = { 65, 64.4, 62.65, 59, 48.3, 44.1, 42.95, 43.45, 45.75, 51.25, 57, 58.93, 59.13, 58.82, 58.2, 57.05, 55, 52, 47.48, 46.67, 50 };
 
 
@@ -88,18 +87,16 @@ void loop() {
     case 1:
       turnByDegree(90);  //vinkelret venstre
       encoderReset();
-      printing((lineDistanceDriven / 5)+2, coastLineDistance[(lineDistanceDriven / 5)+2]);
-      forwardByEncoder(coastLineDistance[(((lineDistanceDriven-5) / 5) + 2)]);
+      printing((lineDistanceDriven / 5) + 2, coastLineDistance[(lineDistanceDriven / 5) + 2]);
+      forwardByEncoder(coastLineDistance[(((lineDistanceDriven - 5) / 5) + 2)]);
       encoderReset();
       sampleCollect();
       turnByDegree(180);
       printing((lineDistanceDriven / 5), coastLineDistance[(lineDistanceDriven / 5)]);
-      forwardByEncoder(coastLineDistance[(((lineDistanceDriven-5) / 5) + 2)]);
+      forwardByEncoder(coastLineDistance[(((lineDistanceDriven - 5) / 5) + 2)]);
       encoderReset();
       turnByDegree(90);
-      a++;
-      stage = 2;
-      break;
+      delay(10);
     case 2:
       if (sample != 2) {
         encoderReset();
@@ -112,17 +109,12 @@ void loop() {
       }
       break;
     case 3:
-      buzzer.playNote(NOTE_E(4), 350, 15);
-      delay(1000);
-      buzzer.playNote(NOTE_E(4), 350, 15);
-      delay(1000);
-      tour += 1;
-      stage = 0;
+      sampleDropOff();
       break;
   }
 }
 
-void printing(int ting1, int ting2){
+void printing(int ting1, int ting2) {
   display.clear();
   display.print(ting1);
   display.gotoXY(0, 1);
@@ -130,8 +122,14 @@ void printing(int ting1, int ting2){
 }
 
 
-
-
+void sampleDropOff() {
+  buzzer.playNote(NOTE_E(4), 350, 15);
+  delay(1000);
+  buzzer.playNote(NOTE_E(4), 350, 15);
+  delay(1000);
+  tour += 1;
+  stage = 0;
+}
 
 void sampleCollect() {
   buzzer.playNote(NOTE_E(4), 350, 15);
@@ -153,10 +151,3 @@ void returnToBase() {
   sample = 0;
   stage = 3;
 }
-
-
-
-
-
-
-
