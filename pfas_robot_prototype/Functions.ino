@@ -1,3 +1,4 @@
+//TURNING
 
 void turnByDegree(int DegreesWanted) {
   WantedAngle = DegreesWanted;
@@ -9,13 +10,14 @@ void turnByDegree(int DegreesWanted) {
 
     //For at finde nuværende position
     int Way = turnSensorUpdate();
-    ((DegreesWanted - Way) > 0) ? motors.setSpeeds(-100, 100) : motors.setSpeeds(-100, 100);  //Hvis ? Så gør : Ellers;  For at udregne korteste mulige sving (ternary operator)
+    ((DegreesWanted - Way) > 0) ? motors.setSpeeds(-turnSpeed, turnSpeed) : motors.setSpeeds(-turnSpeed, turnSpeed);  //Hvis ? Så gør : Ellers;  For at udregne korteste mulige sving (ternary operator)
   }
   motors.setSpeeds(0, 0);  //gør hold
   delay(10);
   turnSensorReset();
 }
 
+//LINE DRIVING
 void lineFollow(int lineDistance) {
   int DrivenDistance = CalcDistance(EncoderL(), EncoderR());
   while (DrivenDistance < lineDistance) {
@@ -43,8 +45,13 @@ void lineFollow(int lineDistance) {
     motors.setSpeeds(leftSpeed, rightSpeed);
   }
   motors.setSpeeds(0, 0);
+  //lineUp();
   delay(100);
 }
+
+/*void lineUp(){
+  turnByDegree(0);
+}*/
 
 //Calibrate linesensors
 void calibrateSensors() {
@@ -59,6 +66,9 @@ void calibrateSensors() {
   }
   motors.setSpeeds(0, 0);
 }
+
+
+//DRIVING
 
 void forwardByEncoder(int Distance) {
   encoderReset();
@@ -79,4 +89,9 @@ void forwardByEncoder(int Distance) {
   }
   motors.setSpeeds(0, 0);
   ForwardVal[0], ForwardVal[1] = 200;
+}
+
+int CalcDistance(double Left, double Right) {
+  int DrivenDistance = (int)(Left / (12 * 75) * wheelCirc + Right / (12 * 75) * wheelCirc) / 2;
+  return DrivenDistance;
 }

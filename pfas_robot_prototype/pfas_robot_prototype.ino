@@ -13,6 +13,7 @@ int countsLeft;
 int countsRight;
 int stage;
 int speed = 150;
+int turnSpeed = 100;
 int maxSpeed = 150;
 int tour;
 
@@ -45,8 +46,6 @@ unsigned int lineSensorValues[NUM_SENSORS];
 
 //VARIABLER FOR AFSTAND UD TIL VANDKANTEN
 int a = 0;
-//int list[4] = { 20, 15, 40, 17 };
-//double coastLineDistance[] = { 84, 83.4, 81.65, 78, 67.3, 63.1, 61.95, 62.45, 64.75, 70.25, 76, 77.93, 78.13, 77.82, 77.2, 76.05, 74, 71, 66.48, 65.67, 69 };
 double coastLineDistance[] = { 65, 64.4, 62.65, 59, 48.3, 44.1, 42.95, 43.45, 45.75, 51.25, 57, 58.93, 59.13, 58.82, 58.2, 57.05, 55, 52, 47.48, 46.67, 50 };
 
 
@@ -56,7 +55,7 @@ double ForwardVal[] = { 200, 200 };
 double MotorChange = 0.1;
 double EncoderMultipliers[] = { 1, 0.9951183256 };
 double EncoderArray[2];
-float wheelCirc = 12.6;
+float wheelCirc = 12.5;
 
 void setup() {
   Serial.begin(9600);
@@ -78,8 +77,8 @@ void loop() {
     case 0:
       if (tour == 1) {
         encoderReset();
-        lineDistanceDriven += 20;
-        lineFollow(20);
+        lineDistanceDriven += 25;
+        lineFollow(25);
         delay(10);
         stage = 1;
       } else {
@@ -89,13 +88,13 @@ void loop() {
     case 1:
       turnByDegree(90);  //vinkelret venstre
       encoderReset();
-      display.print(coastLineDistance[(lineDistanceDriven / 5)]);
-      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)]);
+      printing((lineDistanceDriven / 5)+2, coastLineDistance[(lineDistanceDriven / 5)+2]);
+      forwardByEncoder(coastLineDistance[(((lineDistanceDriven-5) / 5) + 2)]);
       encoderReset();
       sampleCollect();
       turnByDegree(180);
-      display.print(coastLineDistance[(lineDistanceDriven / 5)]);
-      forwardByEncoder(coastLineDistance[((lineDistanceDriven / 5) + 2)]);
+      printing((lineDistanceDriven / 5), coastLineDistance[(lineDistanceDriven / 5)]);
+      forwardByEncoder(coastLineDistance[(((lineDistanceDriven-5) / 5) + 2)]);
       encoderReset();
       turnByDegree(90);
       a++;
@@ -104,8 +103,8 @@ void loop() {
     case 2:
       if (sample != 2) {
         encoderReset();
-        lineDistanceDriven += 20;
-        lineFollow(20);
+        lineDistanceDriven += 25;
+        lineFollow(25);
         delay(10);
         stage = 1;
       } else {
@@ -123,11 +122,14 @@ void loop() {
   }
 }
 
-
-int CalcDistance(double Left, double Right) {
-  int DrivenDistance = (int)(Left / (12 * 75) * wheelCirc + Right / (12 * 75) * wheelCirc) / 2;
-  return DrivenDistance;
+void printing(int ting1, int ting2){
+  display.clear();
+  display.print(ting1);
+  display.gotoXY(0, 1);
+  display.print(ting2);
 }
+
+
 
 
 
@@ -141,9 +143,9 @@ void returnToBase() {
   turnByDegree(180);
   encoderReset();
   if (tour == 1) {
-    lineFollow(80);
+    lineFollow(lineDistanceDriven);
   } else {
-    lineFollow(40);
+    lineFollow(lineDistanceDriven);
   }
   delay(100);
   turnByDegree(180);

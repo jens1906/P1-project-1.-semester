@@ -6,6 +6,8 @@ void buzzerAndDelay() {
   }
 }
 
+//ENCODERS
+
 double EncoderL() {
   double countsLeft = abs(encoders.getCountsLeft());
   countsLeft, EncoderArray[0] = (countsLeft * EncoderMultipliers[0]);
@@ -28,6 +30,7 @@ void encoderReset() {
 
 
 //ALT FOR GYRO HERUNDER:
+
 //Nulstil gyro sensor
 void turnSensorReset() {
   gyroLastUpdate = micros();
