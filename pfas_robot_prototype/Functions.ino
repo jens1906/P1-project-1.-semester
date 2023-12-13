@@ -3,23 +3,22 @@
 void turnByDegree(int DegreesWanted) {
   WantedAngle = DegreesWanted;
 
+  int Way = turnSensorUpdate();
   //Kør så længe gyro siger man IKKE er ved den rette vinkel
   while (turnSensorUpdate() != DegreesWanted) {
     display.clear();
-    //display.print(turnSensorUpdate());
-
-    //For at finde nuværende position
-    int Way = turnSensorUpdate();
-    ((DegreesWanted - Way) > 0) ? motors.setSpeeds(-turnSpeed, turnSpeed) : motors.setSpeeds(-turnSpeed, turnSpeed);  //Hvis ? Så gør : Ellers;  For at udregne korteste mulige sving (ternary operator)
+    DegreesWanted < 180 ? motors.setSpeeds(-turnSpeed, (turnSpeed + turningDif)) : motors.setSpeeds(turnSpeed, (-turnSpeed - turningDif));
   }
+  //For at finde nuværende position
   motors.setSpeeds(0, 0);  //gør hold
   delay(10);
   turnSensorReset();
 }
 
 //LINE DRIVING
-void lineFollow(int lineDistance) {
-  int DrivenDistance = CalcDistance(EncoderL(), EncoderR());
+void lineFollow(double lineDistance) {
+  lineDistance += dif;
+  double DrivenDistance = CalcDistance(EncoderL(), EncoderR());
   while (DrivenDistance < lineDistance) {
     DrivenDistance = CalcDistance(EncoderL(), EncoderR());
 
@@ -70,9 +69,9 @@ void calibrateSensors() {
 
 //DRIVING
 
-void forwardByEncoder(int Distance) {
+void forwardByEncoder(double Distance) {
   encoderReset();
-  int DrivenDistance = CalcDistance(EncoderL(), EncoderR());
+  double DrivenDistance = CalcDistance(EncoderL(), EncoderR());
   while (Distance >= DrivenDistance) {
     motors.setSpeeds(ForwardVal[0], ForwardVal[1]);
     DrivenDistance = CalcDistance(EncoderL(), EncoderR());
@@ -91,7 +90,7 @@ void forwardByEncoder(int Distance) {
   ForwardVal[0], ForwardVal[1] = 200;
 }
 
-int CalcDistance(double Left, double Right) {
-  int DrivenDistance = (int)(Left / (12 * 75) * wheelCirc + Right / (12 * 75) * wheelCirc) / 2;
+double CalcDistance(double Left, double Right) {
+  double DrivenDistance = (Left / (12 * 75) * wheelCirc + Right / (12 * 75) * wheelCirc) / 2;
   return DrivenDistance;
 }

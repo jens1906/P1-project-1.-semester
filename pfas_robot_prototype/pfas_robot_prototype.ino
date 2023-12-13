@@ -5,17 +5,18 @@ Zumo32U4Encoders encoders;
 Zumo32U4Motors motors;
 Zumo32U4Buzzer buzzer;
 Zumo32U4IMU imu;
-Zumo32U4LCD display;
+//Zumo32U4LCD display;
+Zumo32U4OLED display;
 Zumo32U4LineSensors lineSensors;
 Zumo32U4ButtonA buttonA;
 
 int countsLeft;
 int countsRight;
-int stage;
+int stage = -1;
 int speed = 150;
-int turnSpeed = 100;
+int turnSpeed = 125;
 int maxSpeed = 150;
-int tour;
+int tour = 1;
 
 int sample = 0;
 unsigned long startMillis;
@@ -52,60 +53,58 @@ double coastLineDistance[] = { 65, 64.4, 62.65, 59, 48.3, 44.1, 42.95, 43.45, 45
 int lineDistanceDriven = 0;
 double ForwardVal[] = { 200, 200 };
 double MotorChange = 0.1;
-double EncoderMultipliers[] = { 1, 0.9951183256 };
+double EncoderMultipliers[] = { 0.995, 1 };
 double EncoderArray[2];
-float wheelCirc = 12.5;
+float wheelCirc = 12.45;
 
 const int resolutionBetweenTest = 20;
-const int offset = 5;
+const float offset = 1.5;
 const int startPos = 1;
+const float dif = 1.5;
+const int turningDif = 15;
 
 void setup() {
   Serial.begin(9600);
-  turnSensorSetup();
-  delay(10);
-  turnSensorReset();
   startMillis = millis();
   delay(100);
   lineSensors.initFiveSensors();
   calibrateSensors();
+  delay(100);
+  turnSensorSetup();
+  delay(10);
+  turnSensorReset();
+  encoderReset();
   buzzer.playNote(NOTE_E(4), 350, 15);
 }
 
 void loop() {
   if (buttonA.isPressed()) {
-    stage = 2;
+    stage = 0;
+    delay(1000);
   }
+
   switch (stage) {
     case 0:
-      if (tour == 1) {
-        encoderReset();
-        lineDistanceDriven += resolutionBetweenTest;
-        lineFollow(resolutionBetweenTest);
-        delay(10);
-        stage = 1;
-      } else {
-        motors.setSpeeds(0, 0);
-      }
+      nextPoint();
       break;
     case 1:
       driveAndCollect(coastLineDistance[(((lineDistanceDriven) / 5) + startPos)]);
       delay(10);
+      break;
     case 2:
-      if (sample != 2) {
-        encoderReset();
-        lineDistanceDriven += resolutionBetweenTest;
-        lineFollow(resolutionBetweenTest);
-        delay(10);
-        stage = 1;
-      } else {
-        returnToBase();
-      }
+      driveAndContinue();
       break;
     case 3:
       sampleDropOff();
       break;
   }
+}
+
+void driveAndContinue() {
+  encoderReset();
+  lineFollow(lineDistanceDriven);
+  delay(10);
+  stage = 0;
 }
 
 void printing(int ting1, int ting2) {
@@ -115,15 +114,25 @@ void printing(int ting1, int ting2) {
   display.print(ting2);
 }
 
+void nextPoint() {
+  encoderReset();
+  lineDistanceDriven += (resolutionBetweenTest + offset);
+  lineFollow(resolutionBetweenTest + offset);
+  delay(10);
+  stage = 1;
+}
+
 
 void sampleDropOff() {
   for (int i = 0; i < sample; i++) {
     buzzer.playNote(NOTE_E(4), 350, 15);
     delay(1000);
   }
+  display.print("JAAA");
+  delay(100);
   tour += 1;
   sample = 0;
-  stage = 0;
+  stage = 2;
 }
 
 void sampleCollect() {
@@ -136,28 +145,33 @@ void driveAndCollect(double Distance) {
   turnByDegree(90);  //vinkelret venstre
   delay(1000);
   encoderReset();
-  printing((lineDistanceDriven / 5) + 2, coastLineDistance[(lineDistanceDriven / 5) + 2]);
+  printing((((lineDistanceDriven) / 5) + startPos), coastLineDistance[(((lineDistanceDriven) / 5) + startPos)]);
   forwardByEncoder(Distance);
   sampleCollect();
-  turnByDegree(180);
+  turnByDegree(175);
   encoderReset();
-  printing((lineDistanceDriven / 5), coastLineDistance[(lineDistanceDriven / 5)]);
+  printing((((lineDistanceDriven) / 5) + startPos), coastLineDistance[(((lineDistanceDriven) / 5) + startPos)]);
   forwardByEncoder(Distance);
-  turnByDegree(90);
   encoderReset();
+  stage = 0;
+  sample != 2 ? turnByDegree(90) : returnToBase();
 }
 
 void returnToBase() {
-  turnByDegree(180);
+  print();
+  turnByDegree(270);
   encoderReset();
-  if (tour == 1) {
-    lineFollow(lineDistanceDriven);
-  } else {
-    lineFollow(lineDistanceDriven);
-  }
+  lineFollow(lineDistanceDriven);
   delay(100);
   turnByDegree(180);
   delay(100);
-  sample = 0;
   stage = 3;
+  print();
+}
+
+void print() {
+  display.clear();
+  display.print(stage);
+  display.gotoXY(0, 1);
+  display.print(sample);
 }
