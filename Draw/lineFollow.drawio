@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-14T10:30:39.696Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="_XPbG-1Zt9jq9shuHHX-" version="22.1.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-12-14T12:42:16.217Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="moC93Vfcscve6kFFW3DE" version="22.1.8" type="device">
   <diagram name="Page-1" id="q-U9w_K2m61O_o1xIY1g">
-    <mxGraphModel dx="564" dy="1338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="513" dy="1216" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -98,8 +98,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="2l5XyDmXKJX6wJI42wbi-32" value="Set right motor to rightSpeed&lt;br&gt;Set left motor to leftSpeed" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="155" y="510" width="170" height="50" as="geometry" />
+        <mxCell id="2l5XyDmXKJX6wJI42wbi-32" value="Set right motor to rightSpeed&lt;br&gt;Set left motor to leftSpeed" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="142.5" y="510" width="195" height="50" as="geometry" />
         </mxCell>
         <mxCell id="2l5XyDmXKJX6wJI42wbi-38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2l5XyDmXKJX6wJI42wbi-35" target="2l5XyDmXKJX6wJI42wbi-37">
           <mxGeometry relative="1" as="geometry" />
@@ -110,8 +110,8 @@
         <mxCell id="2l5XyDmXKJX6wJI42wbi-40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2l5XyDmXKJX6wJI42wbi-37" target="2l5XyDmXKJX6wJI42wbi-39">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="2l5XyDmXKJX6wJI42wbi-37" value="Set motor speeds to 0" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="175" y="640" width="130" height="30" as="geometry" />
+        <mxCell id="2l5XyDmXKJX6wJI42wbi-37" value="Set motor speeds to 0" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="162.5" y="640" width="155" height="30" as="geometry" />
         </mxCell>
         <mxCell id="2l5XyDmXKJX6wJI42wbi-39" value="Return" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="210" y="690" width="60" height="60" as="geometry" />

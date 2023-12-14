@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-14T09:05:46.441Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="D9p8NL0v1bCMJKdiX6dd" version="22.1.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-12-14T12:45:41.792Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="ktamDbnlmcy1D3WC57Wy" version="22.1.8" type="device">
   <diagram name="Page-1" id="fa6Lr0o27nwmhWaJbWOe">
     <mxGraphModel dx="564" dy="1338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -13,13 +13,13 @@
         <mxCell id="jafpBCZBxu4MRj6mP-v--5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="jafpBCZBxu4MRj6mP-v--2" target="jafpBCZBxu4MRj6mP-v--4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="jafpBCZBxu4MRj6mP-v--2" value="Turn 90 degrees clockwise" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="jafpBCZBxu4MRj6mP-v--2" value="turnByDegree&lt;br&gt;90 degrees" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
           <mxGeometry x="210" y="160" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jafpBCZBxu4MRj6mP-v--9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="jafpBCZBxu4MRj6mP-v--4" target="jafpBCZBxu4MRj6mP-v--8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="jafpBCZBxu4MRj6mP-v--4" value="Drive the total x distance back" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="jafpBCZBxu4MRj6mP-v--4" value="lineFollow&lt;br&gt;lineDistanceDriven" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
           <mxGeometry x="200" y="240" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jafpBCZBxu4MRj6mP-v--7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="jafpBCZBxu4MRj6mP-v--6" target="jafpBCZBxu4MRj6mP-v--4" edge="1">
@@ -36,14 +36,14 @@
         <mxCell id="jafpBCZBxu4MRj6mP-v--19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="jafpBCZBxu4MRj6mP-v--8" target="jafpBCZBxu4MRj6mP-v--18" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="jafpBCZBxu4MRj6mP-v--8" value="Turn 180 degrees" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="jafpBCZBxu4MRj6mP-v--8" value="turnByDegree&lt;br&gt;180 degrees" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
           <mxGeometry x="210" y="320" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jafpBCZBxu4MRj6mP-v--12" value="Return" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="240" y="460" width="60" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="jafpBCZBxu4MRj6mP-v--18" value="Set stage to 3" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="210" y="400" width="120" height="40" as="geometry" />
+        <mxCell id="jafpBCZBxu4MRj6mP-v--18" value="Set variable stage to 3" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="190" y="400" width="160" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

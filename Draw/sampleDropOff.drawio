@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-14T09:05:47.907Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="_10-60AmNB3SVfmO3k8B" version="22.1.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-12-14T12:45:43.570Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="7lSkh8ChJD1Xu_myWGLJ" version="22.1.8" type="device">
   <diagram name="Page-1" id="WC3z1jcUyI-2D93L1_Cb">
     <mxGraphModel dx="564" dy="1338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -13,15 +13,20 @@
         <mxCell id="7PUeAql6gU7AQ2nw7Csy-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="7PUeAql6gU7AQ2nw7Csy-4" target="7PUeAql6gU7AQ2nw7Csy-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="7PUeAql6gU7AQ2nw7Csy-4" value="Make sound to intake 1 sample has been drop off" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="210" y="160" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="7PUeAql6gU7AQ2nw7Csy-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="7PUeAql6gU7AQ2nw7Csy-6" target="7PUeAql6gU7AQ2nw7Csy-4">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="7PUeAql6gU7AQ2nw7Csy-4" value="Make sound to simulate 1 sample has been drop off" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="160" width="180" height="80" as="geometry" />
         </mxCell>
         <mxCell id="7PUeAql6gU7AQ2nw7Csy-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="7PUeAql6gU7AQ2nw7Csy-6" target="7PUeAql6gU7AQ2nw7Csy-13">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="270" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7PUeAql6gU7AQ2nw7Csy-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="7PUeAql6gU7AQ2nw7Csy-6" target="7PUeAql6gU7AQ2nw7Csy-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="148" y="300" />
+              <mxPoint x="148" y="200" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="7PUeAql6gU7AQ2nw7Csy-6" value="Has it dropped off &lt;br&gt;the amount of times there &lt;br&gt;is samples" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -39,8 +44,8 @@
         <mxCell id="7PUeAql6gU7AQ2nw7Csy-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="7PUeAql6gU7AQ2nw7Csy-13" target="7PUeAql6gU7AQ2nw7Csy-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="7PUeAql6gU7AQ2nw7Csy-13" value="set stage to 2&lt;br&gt;set sample to 0" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="210" y="370" width="120" height="50" as="geometry" />
+        <mxCell id="7PUeAql6gU7AQ2nw7Csy-13" value="Set variable stage to 2&lt;br&gt;Set variable sample to 0" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="185" y="370" width="170" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
