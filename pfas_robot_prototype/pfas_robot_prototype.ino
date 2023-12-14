@@ -142,28 +142,28 @@ void sampleCollect() {
 }
 
 void driveAndCollect(double Distance) {
-  turnByDegree(90);  //vinkelret venstre
+  turnByDegree(90-1.5);  //vinkelret venstre
   delay(1000);
   encoderReset();
   printing((((lineDistanceDriven) / 5) + startPos), coastLineDistance[(((lineDistanceDriven) / 5) + startPos)]);
   forwardByEncoder(Distance);
   sampleCollect();
-  turnByDegree(175);
+  turnByDegree(180-3);
   encoderReset();
   printing((((lineDistanceDriven) / 5) + startPos), coastLineDistance[(((lineDistanceDriven) / 5) + startPos)]);
   forwardByEncoder(Distance);
   encoderReset();
   stage = 0;
-  sample != 2 ? turnByDegree(90) : returnToBase();
+  sample != 2 ? turnByDegree(90-1.5) : returnToBase();
 }
 
 void returnToBase() {
   print();
-  turnByDegree(270);
+  turnByDegree(270-4.5);
   encoderReset();
   lineFollow(lineDistanceDriven);
   delay(100);
-  turnByDegree(180);
+  turnByDegree(180-3);
   delay(100);
   stage = 3;
   print();
