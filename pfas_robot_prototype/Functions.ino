@@ -1,12 +1,8 @@
 //TURNING
 
 void turnByDegree(int DegreesWanted) {
-  WantedAngle = DegreesWanted;
-
-  int Way = turnSensorUpdate();
   //Kør så længe gyro siger man IKKE er ved den rette vinkel
   while (turnSensorUpdate() != DegreesWanted) {
-    display.clear();
     DegreesWanted < 180 ? motors.setSpeeds(-turnSpeed, (turnSpeed + turningDif)) : motors.setSpeeds(turnSpeed, (-turnSpeed - turningDif));
   }
   //For at finde nuværende position
@@ -47,10 +43,6 @@ void lineFollow(double lineDistance) {
   //lineUp();
   delay(100);
 }
-
-/*void lineUp(){
-  turnByDegree(0);
-}*/
 
 //Calibrate linesensors
 void calibrateSensors() {
