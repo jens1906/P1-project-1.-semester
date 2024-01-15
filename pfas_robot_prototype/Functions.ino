@@ -3,7 +3,7 @@
 void turnByDegree(int DegreesWanted) {
   //Kør så længe gyro siger man IKKE er ved den rette vinkel
   while (turnSensorUpdate() != DegreesWanted) {
-    DegreesWanted < 180 ? motors.setSpeeds(-turnSpeed, (turnSpeed + turningDif)) : motors.setSpeeds(turnSpeed, (-turnSpeed - turningDif));
+    DegreesWanted <= 180 ? motors.setSpeeds(-turnSpeed, (turnSpeed + turningDif)) : motors.setSpeeds(turnSpeed, (-turnSpeed - turningDif));
   }
   //For at finde nuværende position
   motors.setSpeeds(0, 0);  //gør hold
@@ -24,8 +24,8 @@ void lineFollow(double lineDistance) {
     int16_t error = position - 2000;
     integral += error;
 
-    //int16_t speedDifference = (kp) * error + (kd) * (error - lastError);
-    int16_t speedDifference = (kp)*error + (Ki)*integral + (kd) * (error - lastError);
+    int16_t speedDifference = (kp) * error + (kd) * (error - lastError);
+    //int16_t speedDifference = (kp)*error + (Ki)*integral + (kd) * (error - lastError);
 
     lastError = error;
 
@@ -76,7 +76,7 @@ void forwardByEncoder(double Distance) {
       ForwardVal[1] = ForwardVal[1] - MotorChange;
     }
     DrivenDistance = CalcDistance(EncoderL(), EncoderR());
-    delay(5);
+    delay(2);
   }
   motors.setSpeeds(0, 0);
   ForwardVal[0], ForwardVal[1] = 200;

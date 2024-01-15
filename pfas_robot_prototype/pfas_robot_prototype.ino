@@ -1,6 +1,6 @@
 #include <Zumo32U4.h>
 #include <Wire.h>
-
+ 
 Zumo32U4Encoders encoders;
 Zumo32U4Motors motors;
 Zumo32U4Buzzer buzzer;
@@ -27,6 +27,7 @@ uint32_t turnAngle = 0;
 int16_t turnRate;
 int16_t gyroOffset;
 uint16_t gyroLastUpdate = 0;
+
 uint32_t CurrentAngle;
 int WantedAngle = 0;
 int turn = 0;
@@ -37,10 +38,16 @@ const int32_t turnAngle1 = (turnAngle45 + 22) / 45;
 
 //VARIABLER FOR LINEFOLLOWER
 int16_t lastError = 0;
-float Kmax = 0.4;
-float kp = 0.6 * Kmax;
-float kd = 0.3;  //if overshoot decrease
-float Ki = 0.1;
+//float Kmax = 0.4;
+//float kp = 0.6 * Kmax;
+//float kd = 0.3;  //if overshoot decrease
+//float ki = 0.1
+
+float td = 0.11;
+float Kmax = 1.5;
+float kp = 0.8 * Kmax/2;
+float kd = 0.1 * Kmax * td;  //if overshoot decrease
+
 
 #define NUM_SENSORS 5
 unsigned int lineSensorValues[NUM_SENSORS];
@@ -52,8 +59,8 @@ double coastLineDistance[] = { 65, 64.4, 62.65, 59, 48.3, 44.1, 42.95, 43.45, 45
 //Drive straight and specific distance
 int lineDistanceDriven = 0;
 double ForwardVal[] = { 200, 200 };
-double MotorChange = 0.1;
-double EncoderMultipliers[] = { 0.995, 1 };
+double MotorChange = 0.05;
+double EncoderMultipliers[] = { 0.9949, 1 };
 double EncoderArray[2];
 float wheelCirc = 12.45;
 
